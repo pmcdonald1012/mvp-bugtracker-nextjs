@@ -15,7 +15,7 @@ server.use(express.static("static"));
 
 //routes
 server
-  .get('/api/tasks/all', async (req, res) => {
+  .get('/api/bugs/all', async (req, res) => {
     try {
         const getAllBugs = (await pool.query('SELECT * FROM bugs')).rows
         res.send(getAllBugs)
@@ -23,7 +23,17 @@ server
        console.error(error)      
        res.send(error)
     }
-  
+  })
+  .post('/api/bugs/create', async (req, res) => {
+    try {
+      const data = req.body;
+      const createNewBug = (await pool.query('INSERT INTO bugs (userid, createdby, description, duedate, level, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',[1, 'Paully', data.desc, data.date, data.level, 'logged']))
+      console.log(createNewBug.rows)
+      res.send((createNewBug.rows[0]))
+    } catch (error) {
+      console.error(error)      
+       res.send(error)
+    }
   })
 
 //server listening on a port
@@ -31,3 +41,4 @@ server.listen(port, () => {
     console.log(`Express server is running on port ${port}`);
 })
 
+///let saveUnderUser = (await pool.query('INSERT INTO saves (quoteid, userid) VALUES ($1, $2);', [saveQuotes.rows[0]["quoteid"], currentUser]))

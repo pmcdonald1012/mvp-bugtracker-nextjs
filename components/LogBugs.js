@@ -1,15 +1,15 @@
-const Bugs = ({bugs}) => {
+const logBugs = ({logBugs}) => {
   return (
 
     <table>
       <tbody>
       <tr>
-        <th>Bug</th>
+        <th>Logged Bugs</th>
         <th>Created By</th>
         <th>Due Date</th>
         <th>Level</th>
       </tr>
-          {bugs.map(bug => (
+          {logBugs.map(bug => (
             <tr key={bug.bugid}>
              <td key={bug.bugid}>{bug.description}</td>
              <td key={bug.bugid + 'cb'}>{bug.createdby}</td>
@@ -23,4 +23,4 @@ const Bugs = ({bugs}) => {
   )
 }
 
-export default Bugs;
+export default logBugs;
