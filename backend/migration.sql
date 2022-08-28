@@ -16,6 +16,12 @@ CREATE TABLE bugs (
 );
 INSERT INTO users (username) VALUES ('Paully');
 INSERT INTO bugs (userid, createdby, description, duedate, level, status) VALUES 
-(1,'Paully', 'take dogs for a walk', '08/27/2022', 'low', 'logged'),
-(1,'Paully', 'finish react project', '08/30/2022', 'priority', 'in-progress'),
-(1,'Paully', 'eat lunch', '08/25/2022', 'urgent', 'complete');
+(1,'Paully', 'compiling error server.js', '08/27/2022', 'low', 'logged'),
+(1,'Paully', 'syntax error bugs.js', '08/30/2022', 'priority', 'in-progress'),
+(1,'Paully', 'ReferenceError: $ is not defined', '09/05/2022', 'priority', 'in-progress'),
+(1,'Paully', 'SyntaxError: Invalid or unexpected token', '09/06/2022', 'priority', 'in-progress'),
+(1,'Paully', 'SyntaxError: Unexpected identifier', '09/02/2022', 'priority', 'in-progress'),
+(1,'Paully', 'TypeError: Cannot read property appendChild of null', '09/20/2022', 'priority', 'in-progress'),
+(1,'Paully', 'file not found, import error ', '08/25/2022', 'urgent', 'complete'),
+(1,'Paully', 'migration file error', '08/30/2022', 'low', 'complete'),
+(1,'Paully', '404 server not found BE req', '08/30/2022', 'priority', 'complete');

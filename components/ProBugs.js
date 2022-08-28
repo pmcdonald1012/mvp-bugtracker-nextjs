@@ -1,25 +1,34 @@
-import React from 'react'
-
-const ProBugs = ({proBugs}) => {
+import styles from '../styles/bugs.module.css'
+import { motion } from 'framer-motion';
+const ProBugs = ({proBugs, handleDeleteBug}) => {
+  const localHandleClick = (event) => {
+    const removeId = event.target.dataset.remove;
+    handleDeleteBug(removeId)
+}
   return (
-    <table>
-    <tbody>
-    <tr>
-      <th>In-Process Bugs</th>
-      <th>Created By</th>
-      <th>Due Date</th>
-      <th>Level</th>
-    </tr>
-        {proBugs.map(bug => (
-          <tr key={bug.bugid}>
-           <td key={bug.bugid}>{bug.description}</td>
-           <td key={bug.bugid + 'cb'}>{bug.createdby}</td>
-           <td key={bug.bugid + 'dd'}>{bug.duedate}</td>
-           <td key={bug.bugid + 'l'}>{bug.level}</td>
-         </tr>
-        ))}
-    </tbody>
-  </table>
+    <div className={styles.organizetable}>IN-PROGRESS BUGS  <i className="fa-solid fa-spinner fa-spin"></i>
+    <table className={styles.table}>
+      <thead>
+      <tr className={styles.headtr}>
+        <th className={styles.th}>Bug</th>
+        <th className={styles.th}>Created By</th>
+        <th className={styles.th}>Due Date</th>
+        <th className={styles.th}>Level</th>
+      </tr>
+      </thead>
+      <tbody >
+          {proBugs.map(bug => (
+            <tr className={styles.trow} key={bug.bugid}>
+             <td className={styles.td} key={bug.bugid}>{bug.description}</td>
+             <td className={styles.td} key={bug.bugid + 'cb'}>{bug.createdby}</td>
+             <td className={styles.td} key={bug.bugid + 'dd'}>{bug.duedate}</td>
+             <td className={styles.td} key={bug.bugid + 'l'}>{bug.level}</td>
+             <motion.td whileHover={{ scale: 1.3, x: 20, color: "red"}} className="fa-solid fa-delete-left"  onClick={localHandleClick} data-remove={bug.bugid}></motion.td>
+           </tr>
+          ))}
+      </tbody>
+    </table>
+    </div>
   )
 }
 

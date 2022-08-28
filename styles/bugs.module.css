@@ -1,0 +1,33 @@
+.table{
+  display: table-header-group;
+  border: white 1px solid;
+  font-size: x-large;
+  padding: 1rem;
+  margin: 2rem;
+}
+.headtr {
+ text-align: left;
+ margin-bottom: 3rem;
+}
+.th{ 
+  margin: auto;
+  border-bottom: 2px solid white;
+  padding: 0 12rem 0 0;
+}
+.organizetable {
+  border: 3px rgb(126, 88, 223) solid;
+  display: table-header-group;
+  margin: 2rem;
+  font-size: 1.5rem;
+  box-shadow: 10px 5px 5px rgb(29, 29, 29);
+  padding: 1rem;
+  border-radius: 20px;
+} 
+.td{
+  width: auto;
+  border-bottom: 2px rgb(82, 82, 83) solid;
+}
+.trow{
+  padding: 5px;
+  border: 5px white solid;
+}
