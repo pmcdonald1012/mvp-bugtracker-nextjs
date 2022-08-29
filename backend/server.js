@@ -25,11 +25,9 @@ server
     }
   })
   .post('/api/bugs/create', async (req, res) => {
-    console.log(req.body)
     try {
       const data = req.body.body;
-      const createNewBug = (await pool.query('INSERT INTO bugs (userid, createdby, description, duedate, level, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',[1, 'Paully', data.desc, data.date, data.level, 'logged']))
-      console.log(createNewBug.rows)
+      const createNewBug = (await pool.query('INSERT INTO bugs (userid, createdby, description, duedate, level, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',[1, 'Paully', data.desc, data.date, data.level, data.status]))
       res.send((createNewBug.rows[0]))
     } catch (error) {
       console.error(error)      
@@ -42,6 +40,19 @@ server
       const bugId = req.body.body; 
       const deleteBug = (await pool.query('DELETE FROM bugs WHERE bugid = $1 RETURNING *;', [bugId]))
       res.send(deleteBug)
+    } catch (error) {
+      console.error(error)
+      res.send(error)
+    }
+  })
+  .patch('/api/bugs/update', async (req, res) => {
+    console.log('update req')
+    try {
+      const bugId = req.body.id; 
+      const bugStatus = req.body.status;
+      console.log({bugId, bugStatus})
+      const updateStatus = (await pool.query('UPDATE bugs SET status = $1 WHERE bugid = $2 RETURNING *;', [bugStatus, bugId]))
+      res.send(updateStatus.rows[0])
     } catch (error) {
       console.error(error)
       res.send(error)

@@ -12,9 +12,10 @@ import axios from "axios"
 export const Main = () => {
   //set state
   const [bugs, setBugs] = useState([])
+  //**TO DO ADD LOGIN FEATURE */
   const [currentUser, setCurrentUser] = useState({userid: 1, username: "Paully"})
   const [newBug, setNewBug] = useState({})
-  //updates when page loades   
+  //updates when page loads   
   useEffect(() => {
       getAll()
     }, []);
@@ -44,7 +45,9 @@ export const Main = () => {
       }
     })
     //addToState will update state with response from post
-    .then((res) => addToState(res))
+    .then((res) => {
+      console.log({resfrompost: res})
+      addToState(res)})
     .catch(error => console.log(error))
    }
 
@@ -66,7 +69,25 @@ export const Main = () => {
         removeFromState(data)
         }).catch(error => console.log(error))
     }
-  
+    //patch request to update status 
+    const handleChangeStatus = (id, status) => {
+      axios({
+        method: 'patch',
+        url: 'http://localhost:8000/api/bugs/update',
+        data: {
+          id: id,
+          status: status
+        }
+      }).then(res => {
+        //filter out id match
+        const filteredBug = bugs.filter(bug => bug.bugid != id)
+        //add new data to filtered array
+        const afterConcat = filteredBug.concat([res.data])
+        //set bug state to filtered array with added data
+        setBugs(afterConcat)
+      })
+    }
+
   return (
     <div>
       <Head> 
@@ -80,15 +101,15 @@ export const Main = () => {
         right: 50,
         bottom: 50,
       }} 
-    className="fa-solid fa-bug"></motion.i></header>
+    className="fa-solid fa-bug-slash" id={styles.iconmain}></motion.i></header>
       <div className={styles.container}>
         <div className={styles.menucontainer}>
         <CreateInputs handleCreateBug={handleCreateBug}  newBug={newBug}/>
         </div> 
         <div className={styles.taskcontainer}> 
-            <LogBugs className="log-bugs" logBugs={loggedBugs} handleDeleteBug={handleDeleteBug}/>
-            <ProBugs className='pro-bugs' proBugs={inprocessBugs} handleDeleteBug={handleDeleteBug}/>
-            <CompBugs className='comp-bugs' compBugs={completedBugs} handleDeleteBug={handleDeleteBug}/>
+            <LogBugs  className="log-bugs"  handleChangeStatus={handleChangeStatus} logBugs={loggedBugs} handleDeleteBug={handleDeleteBug}/>
+            <ProBugs  className='pro-bugs'  handleChangeStatus={handleChangeStatus} proBugs={inprocessBugs} handleDeleteBug={handleDeleteBug}/>
+            <CompBugs  className='comp-bugs' handleChangeStatus={handleChangeStatus}  compBugs={completedBugs} handleDeleteBug={handleDeleteBug} />
         </div>
       </div>
       </div>

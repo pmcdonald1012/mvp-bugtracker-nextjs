@@ -8,11 +8,12 @@
     border-left-style: hidden;
     border-bottom-style: groove;
     margin: 1rem;
-    width: 20rem;
+    width: 14.5rem;
     height: 3rem;
     font-size: large;
     background-color: rgb(46, 46, 46);
     box-shadow: 10px 5px 5px rgb(17, 17, 17);
+    color:rgb(65, 65, 65)
     
 }
 .submit {
@@ -25,5 +26,5 @@
   font-size: large;
   background-color: rgb(46, 46, 46);
   box-shadow: 10px 5px 5px rgb(17, 17, 17);
-  color: rgba(255, 255, 255, 0.778);;
+  color: rgba(65, 65, 65);
 }
